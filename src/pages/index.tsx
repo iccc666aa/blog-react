@@ -1,30 +1,19 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import type { JSONContent } from '@tiptap/react';
 import { history } from 'umi';
-import RichTextEditor from '@/components/editor/RichTextEditor';
 import {
   apiRequest,
   AuthResult,
   AuthState,
   BlogPost,
-  BlogVisibility,
   clearStoredAuth,
   formatDateTime,
   readStoredAuth,
   visibilityLabel,
-  visibilityOptions,
   writeStoredAuth,
 } from '@/utils/api';
 import styles from './index.less';
 
 type Mode = 'login' | 'register';
-
-function createEmptyDocument(): JSONContent {
-  return {
-    type: 'doc',
-    content: [{ type: 'paragraph' }],
-  };
-}
 
 export default function HomePage() {
   const [auth, setAuth] = useState<AuthState | null>(() => readStoredAuth());
@@ -34,14 +23,8 @@ export default function HomePage() {
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
-  const [title, setTitle] = useState('');
-  const [contentJson, setContentJson] = useState<JSONContent | null>(() => createEmptyDocument());
-  const [contentHtml, setContentHtml] = useState('');
-  const [plainText, setPlainText] = useState('');
-  const [visibility, setVisibility] = useState<BlogVisibility>('PUBLIC');
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
   const currentUserLabel = useMemo(() => {
@@ -113,51 +96,14 @@ export default function HomePage() {
     }
   };
 
-  const createBlog = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const openCreatePage = () => {
     if (!auth) {
       setShowAuthPanel(true);
       setMessage('登录之后才能新增博客');
       return;
     }
-    if (!title.trim()) {
-      setMessage('请输入标题');
-      return;
-    }
-    if (!plainText.trim()) {
-      setMessage('请输入博客内容');
-      return;
-    }
 
-    setSaving(true);
-    setMessage('');
-    try {
-      const created = await apiRequest<BlogPost>(
-        '/api/blogs',
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            title,
-            contentJson: JSON.stringify(contentJson || createEmptyDocument()),
-            contentHtml,
-            plainText,
-            visibility,
-          }),
-        },
-        auth,
-      );
-      setBlogs((items) => [created, ...items]);
-      setTitle('');
-      setContentJson(createEmptyDocument());
-      setContentHtml('');
-      setPlainText('');
-      setVisibility('PUBLIC');
-      setMessage('博客已发布');
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : '发布失败');
-    } finally {
-      setSaving(false);
-    }
+    history.push('/blogs/new');
   };
 
   const deleteBlog = async (blog: BlogPost) => {
@@ -203,11 +149,6 @@ export default function HomePage() {
     } finally {
       clearStoredAuth();
       setAuth(null);
-      setTitle('');
-      setContentJson(createEmptyDocument());
-      setContentHtml('');
-      setPlainText('');
-      setVisibility('PUBLIC');
       setMessage('');
     }
   };
@@ -315,54 +256,17 @@ export default function HomePage() {
         </section>
       )}
 
-      {auth && (
-        <section className={styles.editorSection}>
-          <form className={styles.editor} onSubmit={createBlog}>
-            <input
-              className={styles.titleInput}
-              maxLength={200}
-              placeholder="请输入标题"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-            />
-            <RichTextEditor
-              auth={auth}
-              value={contentJson}
-              onChange={({ json, html, text }) => {
-                setContentJson(json);
-                setContentHtml(html);
-                setPlainText(text);
-              }}
-            />
-            <div className={styles.editorActions}>
-              <span>{plainText.trim().length} 字</span>
-              <label className={styles.inlineField}>
-                类型
-                <select
-                  value={visibility}
-                  onChange={(event) => setVisibility(event.target.value as BlogVisibility)}
-                >
-                  {visibilityOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button className={styles.primaryButton} disabled={saving} type="submit">
-                {saving ? '发布中...' : '发布博客'}
-              </button>
-            </div>
-          </form>
-        </section>
-      )}
-
       <section className={styles.listSection}>
         <div className={styles.sectionTitle}>
           <h1>博客列表</h1>
-          <button className={styles.ghostButton} disabled={loading} type="button" onClick={loadBlogs}>
-            刷新
-          </button>
+          <div className={styles.sectionActions}>
+            <button className={styles.primaryButton} type="button" onClick={openCreatePage}>
+              新增
+            </button>
+            <button className={styles.ghostButton} disabled={loading} type="button" onClick={loadBlogs}>
+              刷新
+            </button>
+          </div>
         </div>
 
         {message && <div className={styles.message}>{message}</div>}

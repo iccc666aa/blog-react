@@ -6,8 +6,14 @@
 
 .topbar,
 .actions,
+.topbarActions,
 .inlineField,
-.meta {
+.meta,
+.commentTitle,
+.commentHeader,
+.commentActions,
+.commentFormFooter,
+.replyTarget {
   display: flex;
   align-items: center;
 }
@@ -18,8 +24,15 @@
   margin: 0 auto 18px;
 }
 
+.topbarActions {
+  gap: 8px;
+}
+
 .topbar button,
-.actions button {
+.actions button,
+.commentActions button,
+.commentFormFooter button,
+.replyTarget button {
   min-height: 40px;
   padding: 0 16px;
   border: 0;
@@ -58,20 +71,37 @@
   background: #fee2e2;
 }
 
+.topbarActions button:first-child,
+.topbarActions .likedButton {
+  color: #ffffff;
+  background: #116466;
+}
+
+.topbarActions .likedButton {
+  background: #0f766e;
+}
+
 .topbar button:disabled,
-.actions button:disabled {
+.actions button:disabled,
+.commentActions button:disabled,
+.commentFormFooter button:disabled {
   cursor: not-allowed;
   opacity: 0.64;
 }
 
 .editor,
-.article {
+.article,
+.commentSection {
   max-width: 960px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #d8dee8;
   border-radius: 8px;
   background: #ffffff;
+}
+
+.commentSection {
+  margin-top: 18px;
 }
 
 .meta {
@@ -193,6 +223,154 @@
   background: #116466;
 }
 
+.commentTitle {
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.commentTitle h2 {
+  margin: 0;
+  color: #17202a;
+  font-size: 20px;
+}
+
+.commentTitle span,
+.commentHeader span,
+.commentHeader time,
+.commentFormFooter span,
+.loginHint {
+  color: #667085;
+  font-size: 13px;
+}
+
+.commentForm {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.commentForm textarea {
+  width: 100%;
+  min-height: 96px;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #17202a;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+
+.commentForm textarea:focus {
+  border-color: #116466;
+  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+}
+
+.commentFormFooter {
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.commentFormFooter button {
+  color: #ffffff;
+  background: #116466;
+}
+
+.replyTarget {
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #344054;
+  background: #f1f5f9;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.replyTarget button {
+  min-height: 30px;
+  padding: 0 10px;
+  color: #344054;
+  background: #e5e7eb;
+}
+
+.loginHint {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.commentList {
+  display: grid;
+  gap: 12px;
+}
+
+.commentItem,
+.replyItem {
+  padding: 14px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.replyItem {
+  background: #f8fafc;
+}
+
+.commentHeader {
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.commentHeader strong {
+  color: #17202a;
+}
+
+.commentItem p,
+.replyItem p {
+  margin: 10px 0;
+  color: #17202a;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.deletedComment {
+  color: #94a3b8 !important;
+  font-style: italic;
+}
+
+.commentActions {
+  gap: 8px;
+}
+
+.commentActions button {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.commentActions .activeAction {
+  color: #ffffff;
+  background: #116466;
+}
+
+.commentActions .deleteAction {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.replyList {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding-left: 18px;
+  border-left: 3px solid #e5e7eb;
+}
+
 .message,
 .empty {
   max-width: 960px;
@@ -222,5 +400,25 @@
   .actions {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .topbarActions,
+  .commentFormFooter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .topbarActions button,
+  .commentFormFooter button {
+    width: 100%;
+  }
+
+  .replyList {
+    padding-left: 10px;
   }
 }

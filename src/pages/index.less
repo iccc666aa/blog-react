@@ -24,10 +24,10 @@
 .brand,
 .topbar,
 .sectionTitle,
-.editorActions,
 .authHeader,
 .inlineField,
 .itemActions,
+.sectionActions,
 .blogContent {
   display: flex;
   align-items: center;
@@ -118,9 +118,7 @@
 }
 
 .form input,
-.titleInput,
-.inlineField select,
-.editor textarea {
+.inlineField select {
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   color: #17202a;
@@ -131,16 +129,6 @@
 .form input {
   height: 42px;
   padding: 0 12px;
-}
-
-.titleInput {
-  width: 100%;
-  height: 44px;
-  box-sizing: border-box;
-  margin-bottom: 12px;
-  padding: 0 12px;
-  font-size: 16px;
-  font-weight: 700;
 }
 
 .inlineField {
@@ -157,9 +145,7 @@
 }
 
 .form input:focus,
-.titleInput:focus,
-.inlineField select:focus,
-.editor textarea:focus {
+.inlineField select:focus {
   border-color: #116466;
   box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
 }
@@ -213,42 +199,9 @@
   background: #e5e7eb;
 }
 
-.editorSection,
 .listSection {
   max-width: 1040px;
   margin: 0 auto;
-}
-
-.editorSection {
-  margin-bottom: 22px;
-}
-
-.editor {
-  padding: 18px;
-  border: 1px solid #d8dee8;
-  border-radius: 8px;
-  background: #ffffff;
-}
-
-.editor textarea {
-  width: 100%;
-  min-height: 150px;
-  padding: 14px;
-  box-sizing: border-box;
-  line-height: 1.7;
-  resize: vertical;
-}
-
-.editorActions {
-  justify-content: space-between;
-  gap: 14px;
-  margin-top: 12px;
-  color: #667085;
-  font-size: 13px;
-}
-
-.editorActions .inlineField {
-  margin-left: auto;
 }
 
 .sectionTitle {
@@ -259,6 +212,10 @@
 
 .sectionTitle h1 {
   font-size: 24px;
+}
+
+.sectionActions {
+  gap: 8px;
 }
 
 .blogList {
@@ -328,7 +285,6 @@
 
   .topbar,
   .sectionTitle,
-  .editorActions,
   .authHeader {
     align-items: stretch;
     flex-direction: column;

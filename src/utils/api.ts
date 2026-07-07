@@ -37,8 +37,30 @@ export type BlogPost = {
   authorId: number;
   authorName: string;
   owned: boolean;
+  likeCount: number;
+  commentCount: number;
+  liked: boolean;
   createdAt: string;
   updatedAt: string;
+};
+
+export type CommentView = {
+  id: number;
+  postId: number;
+  userId: number;
+  nickname: string;
+  parentId?: number | null;
+  rootId?: number | null;
+  replyToUserId?: number | null;
+  replyToNickname?: string | null;
+  content: string;
+  likeCount: number;
+  liked: boolean;
+  deleted: boolean;
+  owned: boolean;
+  createdAt: string;
+  updatedAt: string;
+  replies: CommentView[];
 };
 
 export type ImageUploadResponse = {
