@@ -63,6 +63,7 @@ export default function EditorToolbar({ editor, auth }: Props) {
           src: result.url,
           alt: result.originalName || '',
           title: result.originalName || '',
+          width: 300,
         })
         .run();
     } catch (error) {

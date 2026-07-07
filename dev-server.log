@@ -1,6 +1,0 @@
-info  - [你知道吗？] 如果你需要增加 Git 提交消息校验和自动代码格式化, umi g precommit 就可以一键完成配置，详见 https://umijs.org/docs/guides/generator#precommit-配置生成器
-
-  utoo pack v1.4.19 ready in 1710ms
-
-  ➜  Local:   http://localhost:8000
-  ➜  Network: http://198.18.0.1:8000

@@ -94,3 +94,55 @@
   margin: 14px 0;
   border-radius: 6px;
 }
+
+.imageNode {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 14px 0;
+  line-height: 0;
+}
+
+.imageNode :global(img.rte-image) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 6px;
+}
+
+.imageNodeSelected :global(img.rte-image) {
+  outline: 2px solid #116466;
+  outline-offset: 2px;
+}
+
+.imageResizeHandle {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #116466;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.24);
+  cursor: nwse-resize;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+}
+
+.imageNode:hover .imageResizeHandle,
+.imageNodeSelected .imageResizeHandle {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+:global(body.rte-image-resizing),
+:global(body.rte-image-resizing *) {
+  cursor: nwse-resize !important;
+  user-select: none;
+}

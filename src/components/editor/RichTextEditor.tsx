@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { EditorContent, JSONContent, useEditor } from '@tiptap/react';
-import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
 import type { AuthState } from '@/utils/api';
 import EditorToolbar from './EditorToolbar';
+import ResizableImage from './extensions/ResizableImage';
 import styles from './editor.less';
 
 type EditorValue = {
@@ -40,7 +40,7 @@ export default function RichTextEditor({ value, onChange, readOnly = false, auth
         autolink: true,
         linkOnPaste: true,
       }),
-      Image.configure({
+      ResizableImage.configure({
         inline: false,
         allowBase64: false,
         HTMLAttributes: {

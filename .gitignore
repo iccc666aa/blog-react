@@ -9,3 +9,4 @@
 .swc
 .turbopack
 .node-localstorage
+*.log
