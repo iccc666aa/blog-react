@@ -1,0 +1,79 @@
+.wrapper {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.toolbar button {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #344054;
+  background: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+}
+
+.toolbar button:hover,
+.toolbar .active {
+  border-color: #116466;
+  color: #116466;
+  background: #ecfdf5;
+}
+
+.content {
+  min-height: 220px;
+  padding: 14px;
+}
+
+.content :global(.ProseMirror) {
+  min-height: 220px;
+  outline: none;
+  line-height: 1.7;
+}
+
+.content :global(.ProseMirror p) {
+  margin: 8px 0;
+}
+
+.content :global(.ProseMirror h1),
+.content :global(.ProseMirror h2),
+.content :global(.ProseMirror h3) {
+  margin: 16px 0 10px;
+  line-height: 1.3;
+}
+
+.content :global(.ProseMirror blockquote) {
+  margin: 12px 0;
+  padding-left: 12px;
+  border-left: 4px solid #cbd5e1;
+  color: #667085;
+}
+
+.content :global(.ProseMirror pre) {
+  padding: 12px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  overflow-x: auto;
+}
+
+.content :global(.ProseMirror code) {
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.content :global(.ProseMirror a) {
+  color: #116466;
+  text-decoration: underline;
+}

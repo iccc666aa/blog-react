@@ -1,5 +1,7 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import type { JSONContent } from '@tiptap/react';
 import { history } from 'umi';
+import RichTextEditor from '@/components/editor/RichTextEditor';
 import {
   apiRequest,
   AuthResult,
@@ -17,6 +19,13 @@ import styles from './index.less';
 
 type Mode = 'login' | 'register';
 
+function createEmptyDocument(): JSONContent {
+  return {
+    type: 'doc',
+    content: [{ type: 'paragraph' }],
+  };
+}
+
 export default function HomePage() {
   const [auth, setAuth] = useState<AuthState | null>(() => readStoredAuth());
   const [showAuthPanel, setShowAuthPanel] = useState(false);
@@ -25,7 +34,10 @@ export default function HomePage() {
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
+  const [contentJson, setContentJson] = useState<JSONContent | null>(() => createEmptyDocument());
+  const [contentHtml, setContentHtml] = useState('');
+  const [plainText, setPlainText] = useState('');
   const [visibility, setVisibility] = useState<BlogVisibility>('PUBLIC');
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(false);
@@ -108,7 +120,11 @@ export default function HomePage() {
       setMessage('登录之后才能新增博客');
       return;
     }
-    if (!content.trim()) {
+    if (!title.trim()) {
+      setMessage('请输入标题');
+      return;
+    }
+    if (!plainText.trim()) {
       setMessage('请输入博客内容');
       return;
     }
@@ -120,12 +136,21 @@ export default function HomePage() {
         '/api/blogs',
         {
           method: 'POST',
-          body: JSON.stringify({ content, visibility }),
+          body: JSON.stringify({
+            title,
+            contentJson: JSON.stringify(contentJson || createEmptyDocument()),
+            contentHtml,
+            plainText,
+            visibility,
+          }),
         },
         auth,
       );
       setBlogs((items) => [created, ...items]);
-      setContent('');
+      setTitle('');
+      setContentJson(createEmptyDocument());
+      setContentHtml('');
+      setPlainText('');
       setVisibility('PUBLIC');
       setMessage('博客已发布');
     } catch (error) {
@@ -178,7 +203,10 @@ export default function HomePage() {
     } finally {
       clearStoredAuth();
       setAuth(null);
-      setContent('');
+      setTitle('');
+      setContentJson(createEmptyDocument());
+      setContentHtml('');
+      setPlainText('');
       setVisibility('PUBLIC');
       setMessage('');
     }
@@ -290,14 +318,23 @@ export default function HomePage() {
       {auth && (
         <section className={styles.editorSection}>
           <form className={styles.editor} onSubmit={createBlog}>
-            <textarea
-              maxLength={10000}
-              placeholder="写点什么..."
-              value={content}
-              onChange={(event) => setContent(event.target.value)}
+            <input
+              className={styles.titleInput}
+              maxLength={200}
+              placeholder="请输入标题"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+            <RichTextEditor
+              value={contentJson}
+              onChange={({ json, html, text }) => {
+                setContentJson(json);
+                setContentHtml(html);
+                setPlainText(text);
+              }}
             />
             <div className={styles.editorActions}>
-              <span>{content.trim().length}/10000</span>
+              <span>{plainText.trim().length} 字</span>
               <label className={styles.inlineField}>
                 类型
                 <select
@@ -342,7 +379,7 @@ export default function HomePage() {
                   type="button"
                   onClick={() => history.push(`/blogs/${blog.id}`)}
                 >
-                  <strong>{blog.summary || '未命名博客'}</strong>
+                  <strong>{blog.title || blog.summary || '未命名博客'}</strong>
                   <span>
                     {visibilityLabel(blog.visibility)} · {blog.authorName} · 更新于 {formatDateTime(blog.updatedAt)}
                   </span>

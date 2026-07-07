@@ -28,7 +28,10 @@ export type BlogVisibility = 'PUBLIC' | 'LOGIN_REQUIRED' | 'PRIVATE';
 
 export type BlogPost = {
   id: number;
-  content: string;
+  title: string;
+  contentJson?: string | null;
+  contentHtml: string;
+  plainText: string;
   summary: string;
   visibility: BlogVisibility;
   authorId: number;

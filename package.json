@@ -10,6 +10,10 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@tiptap/extension-link": "^3.27.2",
+    "@tiptap/extension-placeholder": "^3.27.2",
+    "@tiptap/react": "^3.27.2",
+    "@tiptap/starter-kit": "^3.27.2",
     "umi": "4.6.72"
   },
   "devDependencies": {
