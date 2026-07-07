@@ -1,6 +1,7 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import type { JSONContent } from '@tiptap/react';
 import { history, useParams } from 'umi';
+import Icon from '@/components/Icon';
 import RichTextEditor from '@/components/editor/RichTextEditor';
 import {
   apiRequest,
@@ -306,17 +307,31 @@ export default function BlogDetailPage() {
           disabled={comment.deleted}
           type="button"
           onClick={() => toggleCommentLike(comment)}
+          aria-label="点赞评论"
+          title="点赞"
         >
-          赞 {comment.likeCount || 0}
+          <Icon name="heart" />
+          <span>{comment.likeCount || 0}</span>
         </button>
         {auth && !comment.deleted && (
-          <button type="button" onClick={() => setReplyTarget(comment)}>
-            回复
+          <button
+            type="button"
+            onClick={() => setReplyTarget(comment)}
+            aria-label="回复"
+            title="回复"
+          >
+            <Icon name="reply" />
           </button>
         )}
         {comment.owned && !comment.deleted && (
-          <button className={styles.deleteAction} type="button" onClick={() => deleteComment(comment)}>
-            删除
+          <button
+            className={styles.deleteAction}
+            type="button"
+            onClick={() => deleteComment(comment)}
+            aria-label="删除"
+            title="删除"
+          >
+            <Icon name="trash" />
           </button>
         )}
       </div>
@@ -329,8 +344,8 @@ export default function BlogDetailPage() {
   return (
     <main className={styles.detailPage}>
       <header className={styles.topbar}>
-        <button type="button" onClick={() => history.push('/')}>
-          返回列表
+        <button type="button" onClick={() => history.push('/')} aria-label="返回列表" title="返回列表">
+          <Icon name="arrow-left" />
         </button>
         <div className={styles.topbarActions}>
           {blog && (
@@ -338,13 +353,16 @@ export default function BlogDetailPage() {
               className={blog.liked ? styles.likedButton : ''}
               type="button"
               onClick={toggleBlogLike}
+              aria-label="点赞"
+              title="点赞"
             >
-              赞 {blog.likeCount || 0}
+              <Icon name="heart" />
+              <span>{blog.likeCount || 0}</span>
             </button>
           )}
           {blog?.owned && (
-            <button type="button" onClick={deleteBlog}>
-              删除
+            <button type="button" onClick={deleteBlog} aria-label="删除" title="删除">
+              <Icon name="trash" />
             </button>
           )}
         </div>
@@ -359,7 +377,6 @@ export default function BlogDetailPage() {
           {blog.owned ? (
             <form className={styles.editor} onSubmit={save}>
               <div className={styles.meta}>
-                <h1>博客编辑</h1>
                 <span>{visibilityLabel(blog.visibility)}</span>
                 <span>作者 {blog.authorName}</span>
                 <span>评论 {blog.commentCount || 0}</span>
@@ -401,7 +418,8 @@ export default function BlogDetailPage() {
                   </select>
                 </label>
                 <button type="submit" disabled={saving}>
-                  {saving ? '保存中...' : '保存修改'}
+                  <Icon name="save" />
+                  {saving ? '保存中...' : '保存'}
                 </button>
               </div>
 
@@ -436,8 +454,13 @@ export default function BlogDetailPage() {
                 {replyTarget && (
                   <div className={styles.replyTarget}>
                     正在回复 {replyTarget.nickname}
-                    <button type="button" onClick={() => setReplyTarget(null)}>
-                      取消
+                    <button
+                      type="button"
+                      onClick={() => setReplyTarget(null)}
+                      aria-label="取消回复"
+                      title="取消回复"
+                    >
+                      <Icon name="x" />
                     </button>
                   </div>
                 )}
@@ -450,7 +473,8 @@ export default function BlogDetailPage() {
                 <div className={styles.commentFormFooter}>
                   <span>{commentText.trim().length}/1000</span>
                   <button type="submit" disabled={submittingComment}>
-                    {submittingComment ? '提交中...' : replyTarget ? '发布回复' : '发布评论'}
+                    <Icon name="send" />
+                    {submittingComment ? '提交中...' : replyTarget ? '回复' : '评论'}
                   </button>
                 </div>
               </form>

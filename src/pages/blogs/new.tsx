@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import type { JSONContent } from '@tiptap/react';
 import { history } from 'umi';
+import Icon from '@/components/Icon';
 import RichTextEditor from '@/components/editor/RichTextEditor';
 import {
   apiRequest,
@@ -72,8 +73,13 @@ export default function BlogNewPage() {
   return (
     <main className={styles.detailPage}>
       <header className={styles.topbar}>
-        <button type="button" onClick={() => history.push('/')}>
-          返回列表
+        <button
+          type="button"
+          onClick={() => history.push('/')}
+          aria-label="返回列表"
+          title="返回列表"
+        >
+          <Icon name="arrow-left" />
         </button>
       </header>
 
@@ -81,10 +87,6 @@ export default function BlogNewPage() {
         <div className={styles.empty}>请先登录后新增博客</div>
       ) : (
         <form className={styles.editor} onSubmit={createBlog}>
-          <div className={styles.meta}>
-            <h1>新增博客</h1>
-          </div>
-
           <input
             className={styles.titleInput}
             maxLength={200}
@@ -119,7 +121,8 @@ export default function BlogNewPage() {
               </select>
             </label>
             <button type="submit" disabled={saving}>
-              {saving ? '发布中...' : '发布博客'}
+              <Icon name="send" />
+              {saving ? '发布中...' : '发布'}
             </button>
           </div>
 

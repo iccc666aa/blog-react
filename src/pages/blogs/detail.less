@@ -1,7 +1,7 @@
 .detailPage {
   min-height: 100vh;
   box-sizing: border-box;
-  padding: 24px;
+  padding: 22px;
 }
 
 .topbar,
@@ -33,14 +33,34 @@
 .commentActions button,
 .commentFormFooter button,
 .replyTarget button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   min-height: 40px;
   padding: 0 16px;
   border: 0;
   border-radius: 6px;
-  color: #344054;
-  background: #e5e7eb;
+  color: #2563eb;
+  background: #eff6ff;
   cursor: pointer;
   font-weight: 700;
+}
+
+.topbar > button,
+.replyTarget button {
+  width: 40px;
+  min-width: 40px;
+  padding: 0;
+}
+
+.topbar button svg,
+.actions button svg,
+.commentActions button svg,
+.commentFormFooter button svg,
+.replyTarget button svg {
+  width: 18px;
+  height: 18px;
 }
 
 .inlineField {
@@ -62,23 +82,23 @@
 }
 
 .inlineField select:focus {
-  border-color: #116466;
-  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgb(147 197 253 / 28%);
 }
 
-.topbar button:last-child {
+.topbarActions button:last-child {
   color: #991b1b;
-  background: #fee2e2;
+  background: #fef2f2;
 }
 
 .topbarActions button:first-child,
 .topbarActions .likedButton {
-  color: #ffffff;
-  background: #116466;
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .topbarActions .likedButton {
-  background: #0f766e;
+  background: #bfdbfe;
 }
 
 .topbar button:disabled,
@@ -95,7 +115,7 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #d8dee8;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
 }
@@ -107,7 +127,7 @@
 .meta {
   flex-wrap: wrap;
   gap: 10px 16px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .meta h1 {
@@ -139,8 +159,8 @@
 }
 
 .titleInput:focus {
-  border-color: #116466;
-  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgb(147 197 253 / 28%);
 }
 
 .editor textarea {
@@ -157,8 +177,8 @@
 }
 
 .editor textarea:focus {
-  border-color: #116466;
-  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgb(147 197 253 / 28%);
 }
 
 .editor textarea:read-only {
@@ -200,7 +220,7 @@
 }
 
 .articleBody :global(a) {
-  color: #116466;
+  color: #2563eb;
   text-decoration: underline;
 }
 
@@ -219,8 +239,8 @@
 }
 
 .actions button {
-  color: #ffffff;
-  background: #116466;
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .commentTitle {
@@ -264,8 +284,8 @@
 }
 
 .commentForm textarea:focus {
-  border-color: #116466;
-  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgb(147 197 253 / 28%);
 }
 
 .commentFormFooter {
@@ -274,8 +294,8 @@
 }
 
 .commentFormFooter button {
-  color: #ffffff;
-  background: #116466;
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .replyTarget {
@@ -291,9 +311,8 @@
 
 .replyTarget button {
   min-height: 30px;
-  padding: 0 10px;
-  color: #344054;
-  background: #e5e7eb;
+  color: #2563eb;
+  background: #eff6ff;
 }
 
 .loginHint {
@@ -311,7 +330,7 @@
 .commentItem,
 .replyItem {
   padding: 14px;
-  border: 1px solid #d8dee8;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
 }
@@ -349,18 +368,19 @@
 
 .commentActions button {
   min-height: 32px;
+  min-width: 36px;
   padding: 0 10px;
   font-size: 13px;
 }
 
 .commentActions .activeAction {
-  color: #ffffff;
-  background: #116466;
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .commentActions .deleteAction {
   color: #991b1b;
-  background: #fee2e2;
+  background: #fef2f2;
 }
 
 .replyList {
@@ -381,8 +401,8 @@
 }
 
 .message {
-  color: #075985;
-  background: #e0f2fe;
+  color: #1d4ed8;
+  background: #eff6ff;
 }
 
 .empty {

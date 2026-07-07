@@ -1,5 +1,6 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { history } from 'umi';
+import Icon from '@/components/Icon';
 import {
   apiRequest,
   AuthResult,
@@ -158,15 +159,27 @@ export default function HomePage() {
       <header className={styles.topbar}>
         <div>
           <span className={styles.logo}>Blog</span>
-          <strong>{auth ? currentUserLabel : '公共列表'}</strong>
+          {auth && <strong>{currentUserLabel}</strong>}
         </div>
         {auth ? (
-          <button className={styles.ghostButton} type="button" onClick={logout}>
-            退出
+          <button
+            className={styles.iconButton}
+            type="button"
+            onClick={logout}
+            aria-label="退出"
+            title="退出"
+          >
+            <Icon name="log-out" />
           </button>
         ) : (
-          <button className={styles.primaryButton} type="button" onClick={() => setShowAuthPanel(true)}>
-            登录
+          <button
+            className={styles.primaryIconButton}
+            type="button"
+            onClick={() => setShowAuthPanel(true)}
+            aria-label="登录"
+            title="登录"
+          >
+            <Icon name="log-in" />
           </button>
         )}
       </header>
@@ -190,14 +203,18 @@ export default function HomePage() {
                 注册
               </button>
             </div>
-            <button className={styles.ghostButton} type="button" onClick={() => setShowAuthPanel(false)}>
-              收起
+            <button
+              className={styles.iconButton}
+              type="button"
+              onClick={() => setShowAuthPanel(false)}
+              aria-label="收起"
+              title="收起"
+            >
+              <Icon name="x" />
             </button>
           </div>
 
           <form className={styles.form} onSubmit={submitAuth}>
-            <h1>{mode === 'login' ? '登录账号' : '注册账号'}</h1>
-
             <label>
               用户名
               <input
@@ -250,6 +267,7 @@ export default function HomePage() {
             )}
 
             <button className={styles.primaryButton} disabled={loading} type="submit">
+              <Icon name={mode === 'login' ? 'log-in' : 'user-plus'} />
               {loading ? '提交中...' : mode === 'login' ? '登录' : '注册'}
             </button>
           </form>
@@ -258,13 +276,26 @@ export default function HomePage() {
 
       <section className={styles.listSection}>
         <div className={styles.sectionTitle}>
-          <h1>博客列表</h1>
+          <h1>文章</h1>
           <div className={styles.sectionActions}>
-            <button className={styles.primaryButton} type="button" onClick={openCreatePage}>
-              新增
+            <button
+              className={styles.primaryIconButton}
+              type="button"
+              onClick={openCreatePage}
+              aria-label="新增"
+              title="新增"
+            >
+              <Icon name="plus" />
             </button>
-            <button className={styles.ghostButton} disabled={loading} type="button" onClick={loadBlogs}>
-              刷新
+            <button
+              className={styles.iconButton}
+              disabled={loading}
+              type="button"
+              onClick={loadBlogs}
+              aria-label="刷新"
+              title="刷新"
+            >
+              <Icon name="refresh" />
             </button>
           </div>
         </div>
@@ -290,12 +321,22 @@ export default function HomePage() {
                   </span>
                 </button>
                 <div className={styles.itemActions}>
-                  <button type="button" onClick={() => history.push(`/blogs/${blog.id}`)}>
-                    {blog.owned ? '查看/编辑' : '查看'}
+                  <button
+                    type="button"
+                    onClick={() => history.push(`/blogs/${blog.id}`)}
+                    aria-label={blog.owned ? '查看并编辑' : '查看'}
+                    title={blog.owned ? '查看并编辑' : '查看'}
+                  >
+                    <Icon name={blog.owned ? 'edit' : 'eye'} />
                   </button>
                   {blog.owned && (
-                    <button type="button" onClick={() => deleteBlog(blog)}>
-                      删除
+                    <button
+                      type="button"
+                      onClick={() => deleteBlog(blog)}
+                      aria-label="删除"
+                      title="删除"
+                    >
+                      <Icon name="trash" />
                     </button>
                   )}
                 </div>

@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import type { Editor } from '@tiptap/react';
+import Icon, { IconName } from '@/components/Icon';
 import type { AuthState } from '@/utils/api';
 import { uploadImage } from '@/utils/api';
 import styles from './editor.less';
@@ -8,6 +9,30 @@ type Props = {
   editor: Editor;
   auth?: AuthState | null;
 };
+
+type ToolbarButtonProps = {
+  label: string;
+  icon?: IconName;
+  text?: string;
+  active?: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+};
+
+function ToolbarButton({ label, icon, text, active, disabled, onClick }: ToolbarButtonProps) {
+  return (
+    <button
+      type="button"
+      className={active ? styles.active : ''}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      title={label}
+    >
+      {icon ? <Icon name={icon} /> : <span>{text}</span>}
+    </button>
+  );
+}
 
 export default function EditorToolbar({ editor, auth }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -76,82 +101,73 @@ export default function EditorToolbar({ editor, auth }: Props) {
 
   return (
     <div className={styles.toolbar}>
-      <button
-        type="button"
-        className={editor.isActive('bold') ? styles.active : ''}
+      <ToolbarButton
+        label="加粗"
+        icon="bold"
+        active={editor.isActive('bold')}
         onClick={() => editor.chain().focus().toggleBold().run()}
-      >
-        B
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('italic') ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="斜体"
+        icon="italic"
+        active={editor.isActive('italic')}
         onClick={() => editor.chain().focus().toggleItalic().run()}
-      >
-        I
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('strike') ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="删除线"
+        icon="strikethrough"
+        active={editor.isActive('strike')}
         onClick={() => editor.chain().focus().toggleStrike().run()}
-      >
-        S
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('heading', { level: 1 }) ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="一级标题"
+        text="H1"
+        active={editor.isActive('heading', { level: 1 })}
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-      >
-        H1
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('heading', { level: 2 }) ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="二级标题"
+        text="H2"
+        active={editor.isActive('heading', { level: 2 })}
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-      >
-        H2
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('heading', { level: 3 }) ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="三级标题"
+        text="H3"
+        active={editor.isActive('heading', { level: 3 })}
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-      >
-        H3
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('bulletList') ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="无序列表"
+        icon="bullet-list"
+        active={editor.isActive('bulletList')}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-      >
-        无序列表
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('orderedList') ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="有序列表"
+        icon="ordered-list"
+        active={editor.isActive('orderedList')}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-      >
-        有序列表
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('blockquote') ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="引用"
+        icon="quote"
+        active={editor.isActive('blockquote')}
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-      >
-        引用
-      </button>
-      <button
-        type="button"
-        className={editor.isActive('codeBlock') ? styles.active : ''}
+      />
+      <ToolbarButton
+        label="代码块"
+        icon="code"
+        active={editor.isActive('codeBlock')}
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-      >
-        代码块
-      </button>
-      <button type="button" onClick={setLink}>
-        链接
-      </button>
-      <button type="button" onClick={openImageSelector} disabled={uploading}>
-        {uploading ? '上传中...' : '图片'}
-      </button>
+      />
+      <ToolbarButton label="链接" icon="link" onClick={setLink} />
+      <ToolbarButton
+        label={uploading ? '上传中' : '图片'}
+        icon={uploading ? 'upload' : 'image'}
+        disabled={uploading}
+        onClick={openImageSelector}
+      />
       <input
         ref={fileInputRef}
         className={styles.fileInput}
@@ -159,12 +175,8 @@ export default function EditorToolbar({ editor, auth }: Props) {
         accept="image/png,image/jpeg,image/gif,image/webp"
         onChange={handleImageChange}
       />
-      <button type="button" onClick={() => editor.chain().focus().undo().run()}>
-        撤销
-      </button>
-      <button type="button" onClick={() => editor.chain().focus().redo().run()}>
-        重做
-      </button>
+      <ToolbarButton label="撤销" icon="undo" onClick={() => editor.chain().focus().undo().run()} />
+      <ToolbarButton label="重做" icon="redo" onClick={() => editor.chain().focus().redo().run()} />
     </div>
   );
 }

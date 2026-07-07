@@ -14,11 +14,10 @@
   width: min(100%, 1040px);
   box-sizing: border-box;
   margin: 0 auto 22px;
-  padding: 28px;
-  border: 1px solid #d8dee8;
+  padding: 22px;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 22px 60px rgb(21 32 43 / 12%);
 }
 
 .brand,
@@ -41,7 +40,7 @@
 
 .brand span,
 .logo {
-  color: #116466;
+  color: #60a5fa;
   font-size: 28px;
   font-weight: 800;
 }
@@ -56,9 +55,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   padding: 4px;
-  border: 1px solid #d8dee8;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  background: #f5f7fa;
+  background: #f8fafc;
 }
 
 .authHeader {
@@ -73,12 +72,33 @@
 .tabs button,
 .primaryButton,
 .ghostButton,
-.itemActions button {
+.itemActions button,
+.iconButton,
+.primaryIconButton {
   min-height: 40px;
   border: 0;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 700;
+}
+
+.iconButton,
+.primaryIconButton,
+.itemActions button {
+  display: inline-grid;
+  width: 40px;
+  min-width: 40px;
+  box-sizing: border-box;
+  place-items: center;
+  padding: 0;
+}
+
+.iconButton svg,
+.primaryIconButton svg,
+.primaryButton svg,
+.itemActions button svg {
+  width: 18px;
+  height: 18px;
 }
 
 .tabs button {
@@ -87,15 +107,15 @@
 }
 
 .tabs .activeTab {
-  color: #ffffff;
-  background: #116466;
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 14px;
+  margin-top: 18px;
 }
 
 .form h1,
@@ -146,18 +166,29 @@
 
 .form input:focus,
 .inlineField select:focus {
-  border-color: #116466;
-  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgb(147 197 253 / 28%);
 }
 
 .primaryButton {
-  padding: 0 18px;
-  color: #ffffff;
-  background: #116466;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.primaryIconButton {
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .primaryButton:disabled,
-.ghostButton:disabled {
+.ghostButton:disabled,
+.iconButton:disabled,
+.primaryIconButton:disabled {
   cursor: not-allowed;
   opacity: 0.64;
 }
@@ -165,13 +196,13 @@
 .message {
   padding: 10px 12px;
   border-radius: 6px;
-  color: #075985;
-  background: #e0f2fe;
+  color: #1d4ed8;
+  background: #eff6ff;
   font-size: 14px;
 }
 
 .blogPage {
-  padding: 24px;
+  padding: 22px;
 }
 
 .topbar {
@@ -195,8 +226,17 @@
 .ghostButton,
 .itemActions button {
   padding: 0 14px;
-  color: #344054;
-  background: #e5e7eb;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.iconButton {
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.itemActions button {
+  padding: 0;
 }
 
 .listSection {
@@ -228,7 +268,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 16px;
   padding: 16px;
-  border: 1px solid #d8dee8;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
 }
@@ -266,7 +306,7 @@
 
 .itemActions button:last-child {
   color: #991b1b;
-  background: #fee2e2;
+  background: #fef2f2;
 }
 
 .empty {
