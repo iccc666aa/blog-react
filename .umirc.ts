@@ -3,6 +3,7 @@ import { defineConfig } from "umi";
 export default defineConfig({
   routes: [
     { path: "/", component: "index" },
+    { path: "/blogs/:id", component: "blogs/[id]" },
     { path: "/docs", component: "docs" },
   ],
   proxy: {
@@ -12,5 +13,5 @@ export default defineConfig({
     },
   },
   npmClient: 'pnpm',
-  utoopack: {},
+  // utoopack: {},
 });

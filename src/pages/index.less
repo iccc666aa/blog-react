@@ -1,42 +1,53 @@
-.page {
-  display: grid;
+.authPage,
+.blogPage {
   min-height: 100vh;
-  grid-template-columns: minmax(320px, 420px) minmax(280px, 360px);
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  padding: 32px;
   box-sizing: border-box;
 }
 
-.panel,
-.status {
-  border: 1px solid #dbe3ec;
-  border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 20px 50px rgb(15 23 42 / 10%);
+.authPage {
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
 
-.panel {
+.authPanel {
+  width: min(100%, 1040px);
+  box-sizing: border-box;
+  margin: 0 auto 22px;
   padding: 28px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 22px 60px rgb(21 32 43 / 12%);
+}
+
+.brand,
+.topbar,
+.sectionTitle,
+.editorActions,
+.authHeader,
+.inlineField,
+.itemActions,
+.blogContent {
+  display: flex;
+  align-items: center;
 }
 
 .brand {
-  display: flex;
-  align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
-.brand span {
-  color: #0f766e;
+.brand span,
+.logo {
+  color: #116466;
   font-size: 28px;
   font-weight: 800;
 }
 
 .brand strong {
-  color: #667085;
+  color: #64748b;
   font-size: 14px;
 }
 
@@ -45,29 +56,39 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   padding: 4px;
-  border: 1px solid #dbe3ec;
+  border: 1px solid #d8dee8;
   border-radius: 8px;
-  background: #f6f8fb;
+  background: #f5f7fa;
+}
+
+.authHeader {
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.authHeader .tabs {
+  width: min(100%, 320px);
 }
 
 .tabs button,
-.submit,
-.status button {
-  min-height: 42px;
+.primaryButton,
+.ghostButton,
+.itemActions button {
+  min-height: 40px;
   border: 0;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .tabs button {
-  color: #667085;
+  color: #64748b;
   background: transparent;
 }
 
 .tabs .activeTab {
   color: #ffffff;
-  background: #0f766e;
-  font-weight: 700;
+  background: #116466;
 }
 
 .form {
@@ -77,11 +98,14 @@
   margin-top: 24px;
 }
 
+.form h1,
+.sectionTitle h1 {
+  margin: 0;
+  color: #17202a;
+}
+
 .form h1 {
-  margin: 0 0 4px;
-  color: #101828;
   font-size: 26px;
-  line-height: 1.2;
 }
 
 .form label {
@@ -93,79 +117,221 @@
   font-weight: 700;
 }
 
-.form input {
-  height: 44px;
-  padding: 0 12px;
+.form input,
+.inlineField select,
+.editor textarea {
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  color: #101828;
-  outline: none;
+  color: #17202a;
   background: #ffffff;
+  outline: none;
 }
 
-.form input:focus {
-  border-color: #0f766e;
-  box-shadow: 0 0 0 3px rgb(15 118 110 / 14%);
+.form input {
+  height: 42px;
+  padding: 0 12px;
 }
 
-.submit {
-  margin-top: 4px;
+.inlineField {
+  gap: 8px;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inlineField select {
+  height: 40px;
+  min-width: 120px;
+  padding: 0 10px;
+}
+
+.form input:focus,
+.inlineField select:focus,
+.editor textarea:focus {
+  border-color: #116466;
+  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+}
+
+.primaryButton {
+  padding: 0 18px;
   color: #ffffff;
-  background: #0f766e;
-  font-weight: 800;
+  background: #116466;
 }
 
-.submit:disabled {
+.primaryButton:disabled,
+.ghostButton:disabled {
   cursor: not-allowed;
-  opacity: 0.68;
+  opacity: 0.64;
 }
 
 .message {
   padding: 10px 12px;
   border-radius: 6px;
-  color: #155e75;
-  background: #ecfeff;
+  color: #075985;
+  background: #e0f2fe;
   font-size: 14px;
 }
 
-.status {
+.blogPage {
   padding: 24px;
 }
 
-.status h2 {
-  margin: 0 0 14px;
-  font-size: 20px;
+.topbar {
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto 22px;
 }
 
-.status p {
-  margin: 0 0 14px;
+.topbar div {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.topbar strong {
   color: #475467;
-  line-height: 1.7;
+  font-size: 14px;
 }
 
-.status textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: 12px;
-  box-sizing: border-box;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+.ghostButton,
+.itemActions button {
+  padding: 0 14px;
   color: #344054;
+  background: #e5e7eb;
+}
+
+.editorSection,
+.listSection {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.editorSection {
+  margin-bottom: 22px;
+}
+
+.editor {
+  padding: 18px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.editor textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 14px;
+  box-sizing: border-box;
+  line-height: 1.7;
   resize: vertical;
 }
 
-.status button {
-  width: 100%;
+.editorActions {
+  justify-content: space-between;
+  gap: 14px;
   margin-top: 12px;
-  color: #344054;
-  background: #e5e7eb;
-  font-weight: 700;
+  color: #667085;
+  font-size: 13px;
 }
 
-@media (max-width: 840px) {
-  .page {
-    grid-template-columns: minmax(0, 440px);
-    align-items: start;
-    padding: 20px;
+.editorActions .inlineField {
+  margin-left: auto;
+}
+
+.sectionTitle {
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.sectionTitle h1 {
+  font-size: 24px;
+}
+
+.blogList {
+  display: grid;
+  gap: 12px;
+}
+
+.blogItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.blogContent {
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+
+.blogContent strong {
+  max-width: 100%;
+  overflow: hidden;
+  color: #17202a;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.blogContent span {
+  color: #667085;
+  font-size: 13px;
+}
+
+.itemActions {
+  gap: 8px;
+}
+
+.itemActions button:last-child {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.empty {
+  padding: 28px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #667085;
+  text-align: center;
+  background: #ffffff;
+}
+
+@media (max-width: 720px) {
+  .blogPage {
+    padding: 16px;
+  }
+
+  .topbar,
+  .sectionTitle,
+  .editorActions,
+  .authHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .authHeader .tabs {
+    width: 100%;
+  }
+
+  .blogItem {
+    grid-template-columns: 1fr;
+  }
+
+  .itemActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }

@@ -1,0 +1,158 @@
+.detailPage {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24px;
+}
+
+.topbar,
+.actions,
+.inlineField,
+.meta {
+  display: flex;
+  align-items: center;
+}
+
+.topbar {
+  justify-content: space-between;
+  max-width: 960px;
+  margin: 0 auto 18px;
+}
+
+.topbar button,
+.actions button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  color: #344054;
+  background: #e5e7eb;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.inlineField {
+  gap: 8px;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inlineField select {
+  height: 40px;
+  min-width: 120px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #17202a;
+  background: #ffffff;
+  outline: none;
+}
+
+.inlineField select:focus {
+  border-color: #116466;
+  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+}
+
+.topbar button:last-child {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.topbar button:disabled,
+.actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.64;
+}
+
+.editor {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.meta {
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-bottom: 14px;
+}
+
+.meta h1 {
+  width: 100%;
+  margin: 0;
+  color: #17202a;
+  font-size: 26px;
+}
+
+.meta span,
+.actions span {
+  color: #667085;
+  font-size: 13px;
+}
+
+.editor textarea {
+  width: 100%;
+  min-height: 420px;
+  padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #17202a;
+  line-height: 1.7;
+  resize: vertical;
+  outline: none;
+}
+
+.editor textarea:focus {
+  border-color: #116466;
+  box-shadow: 0 0 0 3px rgb(17 100 102 / 14%);
+}
+
+.editor textarea:read-only {
+  background: #f8fafc;
+}
+
+.actions {
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.actions button {
+  color: #ffffff;
+  background: #116466;
+}
+
+.message,
+.empty {
+  max-width: 960px;
+  box-sizing: border-box;
+  margin: 14px auto 0;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.message {
+  color: #075985;
+  background: #e0f2fe;
+}
+
+.empty {
+  border: 1px dashed #cbd5e1;
+  color: #667085;
+  text-align: center;
+  background: #ffffff;
+}
+
+@media (max-width: 720px) {
+  .detailPage {
+    padding: 16px;
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
