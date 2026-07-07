@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { EditorContent, JSONContent, useEditor } from '@tiptap/react';
+import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
+import type { AuthState } from '@/utils/api';
 import EditorToolbar from './EditorToolbar';
 import styles from './editor.less';
 
@@ -16,6 +18,7 @@ type Props = {
   value: JSONContent | null;
   onChange: (value: EditorValue) => void;
   readOnly?: boolean;
+  auth?: AuthState | null;
 };
 
 const emptyDocument: JSONContent = {
@@ -23,7 +26,7 @@ const emptyDocument: JSONContent = {
   content: [{ type: 'paragraph' }],
 };
 
-export default function RichTextEditor({ value, onChange, readOnly = false }: Props) {
+export default function RichTextEditor({ value, onChange, readOnly = false, auth }: Props) {
   const editor = useEditor({
     editable: !readOnly,
     extensions: [
@@ -36,6 +39,13 @@ export default function RichTextEditor({ value, onChange, readOnly = false }: Pr
         openOnClick: false,
         autolink: true,
         linkOnPaste: true,
+      }),
+      Image.configure({
+        inline: false,
+        allowBase64: false,
+        HTMLAttributes: {
+          class: 'rte-image',
+        },
       }),
       Placeholder.configure({
         placeholder: '开始写正文...',
@@ -78,7 +88,7 @@ export default function RichTextEditor({ value, onChange, readOnly = false }: Pr
 
   return (
     <div className={styles.wrapper}>
-      {!readOnly && <EditorToolbar editor={editor} />}
+      {!readOnly && <EditorToolbar editor={editor} auth={auth} />}
       <EditorContent editor={editor} className={styles.content} />
     </div>
   );

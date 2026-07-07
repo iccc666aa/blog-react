@@ -1,11 +1,18 @@
+import { ChangeEvent, useRef, useState } from 'react';
 import type { Editor } from '@tiptap/react';
+import type { AuthState } from '@/utils/api';
+import { uploadImage } from '@/utils/api';
 import styles from './editor.less';
 
 type Props = {
   editor: Editor;
+  auth?: AuthState | null;
 };
 
-export default function EditorToolbar({ editor }: Props) {
+export default function EditorToolbar({ editor, auth }: Props) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [uploading, setUploading] = useState(false);
+
   const setLink = () => {
     const previousUrl = editor.getAttributes('link').href;
     const url = window.prompt('请输入链接地址', previousUrl || '');
@@ -20,6 +27,50 @@ export default function EditorToolbar({ editor }: Props) {
     }
 
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+  };
+
+  const openImageSelector = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) {
+      return;
+    }
+    if (!auth) {
+      window.alert('请先登录再上传图片');
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      window.alert('只能上传图片');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      window.alert('图片不能超过 5MB');
+      return;
+    }
+
+    try {
+      setUploading(true);
+      const result = await uploadImage(file, auth);
+      editor
+        .chain()
+        .focus()
+        .setImage({
+          src: result.url,
+          alt: result.originalName || '',
+          title: result.originalName || '',
+        })
+        .run();
+    } catch (error) {
+      console.error(error);
+      window.alert(error instanceof Error ? error.message : '图片上传失败');
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -97,6 +148,16 @@ export default function EditorToolbar({ editor }: Props) {
       <button type="button" onClick={setLink}>
         链接
       </button>
+      <button type="button" onClick={openImageSelector} disabled={uploading}>
+        {uploading ? '上传中...' : '图片'}
+      </button>
+      <input
+        ref={fileInputRef}
+        className={styles.fileInput}
+        type="file"
+        accept="image/png,image/jpeg,image/gif,image/webp"
+        onChange={handleImageChange}
+      />
       <button type="button" onClick={() => editor.chain().focus().undo().run()}>
         撤销
       </button>

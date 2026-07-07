@@ -10,6 +10,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^3.27.2",
     "@tiptap/extension-link": "^3.27.2",
     "@tiptap/extension-placeholder": "^3.27.2",
     "@tiptap/react": "^3.27.2",

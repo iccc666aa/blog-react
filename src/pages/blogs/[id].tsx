@@ -176,6 +176,7 @@ export default function BlogDetailPage() {
           />
 
           <RichTextEditor
+            auth={auth}
             value={contentJson}
             onChange={({ json, html, text }) => {
               setContentJson(json);

@@ -41,6 +41,12 @@ export type BlogPost = {
   updatedAt: string;
 };
 
+export type ImageUploadResponse = {
+  fileId: number;
+  url: string;
+  originalName: string;
+};
+
 export const visibilityOptions: Array<{ value: BlogVisibility; label: string }> = [
   { value: 'PUBLIC', label: '公共' },
   { value: 'LOGIN_REQUIRED', label: '登录可见' },
@@ -101,6 +107,29 @@ export async function apiRequest<T>(
   const result = (await response.json()) as ApiResponse<T>;
   if (!response.ok || result.code !== 200) {
     throw new Error(result.message || '请求失败');
+  }
+
+  return result.data;
+}
+
+export async function uploadImage(file: File, auth?: AuthState | null): Promise<ImageUploadResponse> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const headers = new Headers();
+  if (auth?.token) {
+    headers.set('Authorization', auth.token);
+  }
+
+  const response = await fetch('/api/files/images', {
+    method: 'POST',
+    headers,
+    body: formData,
+  });
+
+  const result = (await response.json()) as ApiResponse<ImageUploadResponse>;
+  if (!response.ok || result.code !== 200) {
+    throw new Error(result.message || '图片上传失败');
   }
 
   return result.data;

@@ -326,6 +326,7 @@ export default function HomePage() {
               onChange={(event) => setTitle(event.target.value)}
             />
             <RichTextEditor
+              auth={auth}
               value={contentJson}
               onChange={({ json, html, text }) => {
                 setContentJson(json);
